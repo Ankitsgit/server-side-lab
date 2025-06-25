@@ -1,13 +1,17 @@
-<<<<<<< HEAD
+
 const express = require("express");
-const path = require('path')
+const path = require('path');
+
+const cookieParser =require("cookie-parser");
 
 
 const { connectToMongoDB } = require("./connect");
 const URL = require("./models/url");
-
+//export inline middlewares
+const {restrictToLoggedinUserOnly,checkAuth} =require('./middlewares/auth');
 
 // export routes to use
+
 const urlRoute = require("./routes/url");
 const staticRoute = require('./routes/staticRoute')
 const userRoute =require("./routes/user");
@@ -26,10 +30,11 @@ app.set("views" , path.resolve("./views"))
 
 app.use(express.json());
 app.use(express.urlencoded({extended:false})) //for form data
+app.use(cookieParser());
 
 // registering routes
-app.use("/url", urlRoute);
-app.use("/" , staticRoute);
+app.use("/url",restrictToLoggedinUserOnly,urlRoute);// restrictToLoggedinUserOnly middle ware tabhi chalega jb request /url ke upar aayegi
+app.use("/" ,checkAuth, staticRoute);
 app.use("/user",userRoute);
 
 // Server Side Rendering -> 
@@ -90,37 +95,4 @@ app.get("/:shortId", async (req, res) => {
 });
 
 app.listen(PORT, () => console.log(`Server started at port: ${PORT}`));
-=======
-const { nanoid } = require('nanoid');
-const URL = require('../models/url');
 
-async function handleGenerateNewShortURL(req, res) {
-    const body = req.body;
-    if (!body.url) return res.status(400).json({ error: "URL is required" });
-
-    const shortId = nanoid(8);
-    await URL.create({
-        shortId: shortId,
-        redirectURL: body.url,
-        visitHistory: [],
-    });
-
-    return res.json({ id: shortId });
-}
-
-async function handleGetAnalytics(req, res) {
-    const shortId = req.params.shortId;
-    const result = await URL.findOne({ shortId });
-    if (!result) return res.status(404).json({ error: "Short URL not found" });
-
-    return res.json({
-        totalClicks: result.visitHistory.length,
-        analytics: result.visitHistory,
-    });
-}
-
-module.exports = {
-    handleGenerateNewShortURL,
-    handleGetAnalytics,
-};
->>>>>>> 74ce508b5bcca7eb1d9121ea846645ff843be8b0
