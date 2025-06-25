@@ -1,0 +1,114 @@
+# 📘 HTTP Methods in Node.js
+
+## 🧭 Introduction
+This document summarizes the **core concepts** and **practical usage** of HTTP methods in web development using **Node.js**. It includes real-world analogies, browser behavior, code handling, and server logic.
+
+---
+
+## 🔑 Key Themes and Concepts
+
+### 🔁 Purpose of HTTP Methods
+HTTP methods define the **type of operation** a client wants to perform on a resource (e.g., retrieve, create, update, delete). They are a **standardized way** for clients (browsers, tools, etc.) to communicate with a server.
+
+---
+
+## 🌐 Core HTTP Methods Explained
+
+### 🟢 `GET`
+- **Purpose**: Retrieve data from the server.
+- **Behavior**: Browsers use `GET` by default when entering a URL or clicking a link.
+- **Server Action**: Reads from the database and returns a response.
+
+**Quotes:**
+- "When you want to get some data from the server... you make a GET type request."
+- "The server goes into the database and reads the data when a GET request comes in."
+
+---
+
+### 🟠 `POST`
+- **Purpose**: Send data to the server to create or modify a resource.
+- **Common Use**: Submitting forms or user input.
+
+**Quotes:**
+- "POST is when you send data to the server to mutate (change/add) it."
+- "When you want to send some data to the server, we make POST requests."
+
+---
+
+### 🔵 `PUT`
+- **Purpose**: Update or **replace** an existing resource entirely.
+- **Example**: Uploading a profile picture or file.
+
+**Quote:**
+- "PUT is used when uploading photos or files using a form."
+
+---
+
+### 🟣 `PATCH`
+- **Purpose**: Partially update an existing resource.
+- **Example**: Changing just the user's name in a database.
+
+**Quote:**
+- "PATCH is used to modify an existing entry, like changing your name on Facebook."
+
+---
+
+### 🔴 `DELETE`
+- **Purpose**: Remove a resource from the server.
+- **Example**: Deleting a user account.
+
+**Quote:**
+- "DELETE is used when you want to remove something, like deleting your account."
+
+---
+
+## 🌍 Browser's Default Behavior
+- Browsers **automatically send GET** requests when navigating to a URL.
+- **POST** requests are sent when submitting a form.
+
+---
+
+## 🧪 Practical Demo (Using Developer Tools)
+- The **Network tab** in browser dev tools can be used to:
+  - See **GET** requests when URLs are loaded.
+  - See **POST** requests when forms are submitted.
+- Real examples include inspecting YouTube or Facebook traffic.
+
+---
+
+## 🛠️ Handling HTTP Methods in Node.js
+
+### ✅ Accessing the Method
+- Use `request.method` in a basic Node.js HTTP server.
+
+### 🧱 Example Logic
+```js
+if (req.method === 'GET') {
+  // handle GET request
+} else if (req.method === 'POST') {
+  // handle POST request
+}
+
+
+⚠️ Structural Limitations
+Problem:
+Using multiple if/else if statements becomes messy in larger applications.
+
+Solution:
+Use frameworks like Express.js to simplify and structure the handling of routes and methods.
+
+Quote:
+
+"This becomes very complex... so in large apps, we’ll use Express, a framework that simplifies this process."
+
+
+💡 Most Important Takeaways
+HTTP methods are fundamental to web communication.
+
+GET = Read, POST = Create, PUT/PATCH = Update, DELETE = Remove.
+
+Browsers use GET by default.
+
+Node.js uses request.method for detection.
+
+Express.js is recommended for managing multiple routes/methods in scalable apps.
